@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VRChat Admin Helper</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background-color: black;
+            color: white;
+        }
+        h1, h2 {
+            margin: 0;
+        }
+        h1 {
+            font-size: 6rem;
+        }
+        h2 {
+            font-size: 3rem;
+        }
+        #eighteenYearsAgo {
+            color: red;
+        }
+        #twentyOneYearsAgo {
+            color: green;
+        }
+    </style>
+</head>
+<body>
+    <h1 id="todayDate"></h1>
+    <h2 id="eighteenYearsAgo"></h2>
+    <h2 id="twentyOneYearsAgo"></h2>
+
+    <script>
+        function getOrdinalSuffix(day) {
+            if (day > 3 && day < 21) return 'th';
+            switch (day % 10) {
+                case 1: return 'st';
+                case 2: return 'nd';
+                case 3: return 'rd';
+                default: return 'th';
+            }
+        }
+
+        function formatDateWithOrdinal(date) {
+            const day = date.getDate();
+            const month = date.toLocaleDateString('en-GB', { month: 'long' });
+            const year = date.getFullYear();
+            const ordinal = getOrdinalSuffix(day);
+            return `the ${day}${ordinal} of ${month} ${year}`;
+        }
+
+        const today = new Date();
+        const eighteenYearsAgo = new Date();
+        const twentyOneYearsAgo = new Date();
+
+        eighteenYearsAgo.setFullYear(today.getFullYear() - 18);
+        twentyOneYearsAgo.setFullYear(today.getFullYear() - 21);
+
+        document.getElementById('todayDate').textContent = `Today is ${formatDateWithOrdinal(today)}`;
+        document.getElementById('eighteenYearsAgo').textContent = `18 years ago was ${formatDateWithOrdinal(eighteenYearsAgo)}`;
+        document.getElementById('twentyOneYearsAgo').textContent = `21 years ago was ${formatDateWithOrdinal(twentyOneYearsAgo)}`;
+    </script>
+</body>
+</html>
